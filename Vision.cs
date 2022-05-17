@@ -16,6 +16,8 @@ namespace Vision
 {
     public abstract class Vision : Game
     {
+        // For an entry point- at the least.
+        static void Main() { }
         public Vision() : base()
         {
             Window.Title = "VisionFramework";
