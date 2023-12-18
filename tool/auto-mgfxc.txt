@@ -1,0 +1,15 @@
+:: MAKE ABSOLUTELY SURE THAT BAT FILES ARE SAVED IN THE "US-ASCII - Codepage 20127" ENCODING!!!
+@echo Compiling .fx files to .mgfx files...
+@echo off
+
+setlocal enabledelayedexpansion
+
+set fxdir=%1
+:: Iterate recursively through every .fx file in the directory specified by the parameter
+for /R %fxdir% %%f in (*.fx) do (
+    set compiledFileName=%%~dpnf.mgfx
+    :: Compile the .fx file into a .mgfx file
+    call mgfxc "%%f" "!compiledFileName!" /Profile:OpenGL
+)
+
+set ERRORLEVEL = 0

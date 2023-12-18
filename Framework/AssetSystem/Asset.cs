@@ -1,11 +1,5 @@
 ﻿namespace Vision.Framework.AssetSystem;
 
-public enum AssetState {
-    Unloaded,
-    Loaded,
-    OnHold
-}
-
 public class Asset<T> : IContentLoadable where T : class {
     public Asset(string name, T value) {
         Name = name;

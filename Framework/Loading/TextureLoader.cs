@@ -33,7 +33,7 @@ public class TextureLoader {
     /// </param>
     /// <returns></returns>
     public Texture2D LoadTexture(AssetRepository repository, string name) {
-        if (repository.AssetExists(Path.Combine(Globals.BaseDirectory, name)))
+        if (repository.IsAssetLoaded(Path.Combine(Globals.BaseDirectory, name)))
             return repository.Request<Texture2D>(name);
 
         return Texture2D.FromFile(Globals.ActingGraphicsDevice, Path.Combine(Globals.BaseDirectory, name));

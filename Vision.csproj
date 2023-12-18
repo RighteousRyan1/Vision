@@ -29,61 +29,13 @@
     <ItemGroup>
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641"/>
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641"/>
-        <PackageReference Include="System.Management" Version="8.0.0"/>
         <PackageReference Include="System.Text.Json" Version="8.0.0"/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Update="Content\Assets\fonts\DefaultFont_EN.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\DefaultFont_ES.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\DefaultFont_JP.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\en_US.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\es_ES.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\ja_JP.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\Assets\fonts\ru_RU.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Content\en_US.ttf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\de_DE.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\en_US.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\es_ES.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\fr_FR.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\ja_JP.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\pl_PL.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\pt_BR.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Localization\ru_RU.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Core\Exceptions\"/>
         <Folder Include="Framework\Audio\"/>
     </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="call ../../tool/auto-mgfxc.bat &quot;$(ProjectDir)&quot;" />
+  </Target>
 </Project>
