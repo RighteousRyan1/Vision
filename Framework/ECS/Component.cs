@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Vision.Framework.ECS;
 
-namespace Vision.Framework.ECS
-{
-    public struct Component
-    {
-        public object Tag;
-
-    }
+public interface IVisionComponent { // Made for Generics.
+    public object GetTag();    
 }
+
+public struct Component : IVisionComponent {
+    public object Tag;
+
+    public object GetTag() => Tag;
+}
+

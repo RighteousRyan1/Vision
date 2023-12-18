@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Vision.Framework.ECS
-{
-    public struct System
-    {
-    }
+namespace Vision.Framework.ECS;
+
+public interface IVisionSystem {
+    public void InitialiseSystem(IVisionEntity entity);
+}
+
+public struct System : IVisionSystem {
+    public void OnFrameRendered() { }
+    public void OnPhysicsTick() { }
+    public void InitialiseSystem(IVisionEntity entity) { }
 }

@@ -1,38 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Vision.Framework.ECS
-{
-    public class World
-    {
-        public static World[] Worlds = new World[8];
+namespace Vision.Framework.ECS;
 
-        public int Capacity;
-        public string Name;
-        public uint Id { get; private set; }
+public class World {
+    public static World[] Worlds = new World[8];
 
-        public List<Entity> Entities;
+    public int Capacity;
 
-        public World(int capacity)
-        {
-            Entities = new(capacity);
+    public List<Entity> Entities;
+    public string Name;
 
-            for (uint i = 0; i < Worlds.Length; i++)
-            {
-                if (Worlds[i] is null)
-                {
-                    Id = i;
-                    Worlds[i] = this;
-                    return;
-                }
+    public World(int capacity) {
+        Entities = new List<Entity>(capacity);
+
+        for (uint i = 0; i < Worlds.Length; i++)
+            if (Worlds[i] is null) {
+                Id = i;
+                Worlds[i] = this;
+                return;
             }
 
-            Id = (uint)Worlds.Length;
-            Array.Resize(ref Worlds, Worlds.Length * 2);
-            Worlds[Id] = this;
-        }
-
-        //public bool Has<T>()
-            //=> World.Worl
+        Id = (uint)Worlds.Length;
+        Array.Resize(ref Worlds, Worlds.Length * 2);
+        Worlds[Id] = this;
     }
+
+    public uint Id { get; }
+
+    //public bool Has<T>()
+    //=> World.Worl
 }
