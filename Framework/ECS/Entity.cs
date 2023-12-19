@@ -36,7 +36,7 @@ public class Entity : IVisionEntity {
     }
 
     public bool Has<T>() where T : IVisionComponent {
-        return _entityComponents.FirstOrDefault(x => x is T) != null;
+        return _entityComponents.Any(x => x is T);
     }
 
     public void Add<T>(T component) where T : IVisionComponent {

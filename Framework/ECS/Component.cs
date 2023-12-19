@@ -5,8 +5,7 @@ public interface IVisionComponent { // Made for Generics.
 }
 
 public struct Component : IVisionComponent {
-    public object Tag;
-
-    public object GetTag() => Tag;
+    private object _tag;
+    public object GetTag() => _tag;
 }
 

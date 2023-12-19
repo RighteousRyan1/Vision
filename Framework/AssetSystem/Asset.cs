@@ -22,7 +22,7 @@ public class Asset<T> : IContentLoadable where T : class {
     }
 
     /// <summary>
-    ///     The asset itself
+    ///     The asset itself.
     /// </summary>
     /// <exception cref="AssetNotFoundException">
     ///     Throws if the <see cref="Asset{T}"/> was not loaded in the <see cref="AssetRepository"/> that created it.

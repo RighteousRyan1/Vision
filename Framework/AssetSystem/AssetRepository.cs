@@ -48,7 +48,7 @@ public class AssetRepository {
     }
 
     /// <summary>
-    /// 
+    /// Fetch an unloaded asset and load it into memory.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="assetPath"></param>
