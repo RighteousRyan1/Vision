@@ -1,5 +1,6 @@
 ﻿namespace Vision.Framework.AssetSystem;
 
 public interface IContentLoadable {
-    string Name { get; set; }
+    public string Name { get; set; }
+    public string Path { get; set; }
 }

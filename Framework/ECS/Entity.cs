@@ -27,9 +27,9 @@ public class Entity : IVisionEntity {
     }
 
     /// <summary>
-    ///     Gets the first <seealso cref="IVisionComponent"/> that matches the given type
+    ///     Gets the first <see cref="IVisionComponent"/> that matches the given type
     /// </summary>
-    /// <typeparam name="T">A Type which inherits from <seealso cref="IVisionComponent"/></typeparam>
+    /// <typeparam name="T">A Type which inherits from <see cref="IVisionComponent"/></typeparam>
     /// <returns></returns>
     public T Get<T>() where T : IVisionComponent {
         return (T)_entityComponents.First(x => x is T);

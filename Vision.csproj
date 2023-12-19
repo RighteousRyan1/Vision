@@ -36,6 +36,6 @@
         <Folder Include="Framework\Audio\" />
     </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="call ../../tool/auto-mgfxc.bat &quot;$(ProjectDir)&quot;" />
+    <Exec Command="C:\\Windows\\System32\\cmd.exe ../../tool/auto-mgfxc.bat &quot;$(ProjectDir)&quot;" />
   </Target>
 </Project>
