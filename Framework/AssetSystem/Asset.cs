@@ -51,9 +51,23 @@ public class Asset<T> : IContentLoadable where T : class {
         set => _path = value;
     }
 
-    public bool RequestLoad(AssetLoadingParameters loadingParameters) {
+    /// <summary>
+    ///     Requests to the <see cref="AssetRepository"/> to load the asset this <see cref="Asset{T}"/> represents into memory.
+    /// </summary>
+    /// <param name="loadingParameters">Custom parameters for the loading process (Custom font sizes, etc)</param>
+    /// <returns>True if the asset was loaded successfully.</returns>
+    public bool RequestLoad(AssetLoadingParameters loadingParameters = new()) {
         _assetRepository.LoadAsset<T>(_path, loadingParameters); // Load the asset into memory.
         return _assetRepository.IsAssetLoadedByPath(_path);
+    }
+    
+    /// <summary>
+    ///     Requests to the <see cref="AssetRepository"/> to unload the asset this <see cref="Asset{T}"/> represents out of memory.
+    /// </summary>
+    /// <returns>True if the asset was unload was successful.</returns>
+    public bool RequestUnload() {
+        _assetRepository.UnloadAsset<T>(_path);
+        return !_assetRepository.IsAssetLoadedByPath(_path);
     }
 
     /// <summary>
