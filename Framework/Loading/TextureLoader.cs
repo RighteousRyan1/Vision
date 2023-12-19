@@ -6,6 +6,11 @@ using Vision.Framework.AssetSystem;
 namespace Vision.Framework.Loading;
 
 public class TextureLoader {
+    private readonly GraphicsDevice _graphicsDevice;
+    public TextureLoader(GraphicsDevice gfxDevice) {
+        _graphicsDevice = gfxDevice;
+    }
+    
     /// <summary>
     ///     Loads an array of textures from a given directory directly from disk memory.
     /// </summary>
@@ -15,11 +20,10 @@ public class TextureLoader {
     /// </param>
     /// <returns></returns>
     public IEnumerable<Texture2D> LoadTextures(AssetRepository repository, string directory) {
-        Globals.ThrowIfGdNull();
 
         IList<Texture2D> list = new List<Texture2D>();
         foreach (var file in Directory.GetFiles(directory))
-            list.Add(Texture2D.FromFile(Globals.ActingGraphicsDevice,
+            list.Add(Texture2D.FromFile(_graphicsDevice,
                 Path.Combine(Globals.BaseDirectory, directory, file)));
         return list;
     }
@@ -36,6 +40,6 @@ public class TextureLoader {
         if (repository.IsAssetLoaded(Path.Combine(Globals.BaseDirectory, name)))
             return repository.Request<Texture2D>(name);
 
-        return Texture2D.FromFile(Globals.ActingGraphicsDevice, Path.Combine(Globals.BaseDirectory, name));
+        return Texture2D.FromFile(_graphicsDevice, Path.Combine(Globals.BaseDirectory, name));
     }
 }
