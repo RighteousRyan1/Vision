@@ -1,19 +1,26 @@
 ﻿namespace Vision.Framework.AssetSystem;
-public enum AssetState {
+
+/// <summary>
+///     Describes the state of an <see cref="Asset{T}"/>
+/// </summary>
+public enum AssetState : byte {
     /// <summary>
-    ///     The asset is not present in memory.
+    ///     The <see cref="Asset{T}"/> is not present in memory.
     /// </summary>
     Unloaded,
+
     /// <summary>
-    ///     The asset is yet to be loaded.
+    ///     The <see cref="Asset{T}"/> is yet to be loaded.
     /// </summary>
     OnHold,
+
     /// <summary>
-    ///     The asset is being loaded into memory.
+    ///     The <see cref="Asset{T}"/> is being loaded into memory.
     /// </summary>
     Loading,
+
     /// <summary>
-    ///     The asset is loaded into memory.
+    ///     The <see cref="Asset{T}"/> is loaded into memory.
     /// </summary>
     Loaded
 }
