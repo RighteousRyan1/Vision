@@ -7,10 +7,11 @@ namespace Vision.Framework.Loading;
 
 public class TextureLoader {
     private readonly GraphicsDevice _graphicsDevice;
+
     public TextureLoader(GraphicsDevice gfxDevice) {
         _graphicsDevice = gfxDevice;
     }
-    
+
     /// <summary>
     ///     Loads an array of textures from a given directory directly from disk memory.
     /// </summary>
@@ -20,7 +21,6 @@ public class TextureLoader {
     /// </param>
     /// <returns></returns>
     public IEnumerable<Texture2D> LoadTextures(AssetRepository repository, string directory) {
-
         IList<Texture2D> list = new List<Texture2D>();
         foreach (var file in Directory.GetFiles(directory))
             list.Add(Texture2D.FromFile(_graphicsDevice,
@@ -37,9 +37,10 @@ public class TextureLoader {
     /// </param>
     /// <returns></returns>
     public Texture2D LoadTexture(AssetRepository repository, string name) {
-        if (repository.IsAssetLoaded(Path.Combine(Globals.BaseDirectory, name)))
-            return repository.Request<Texture2D>(name);
+        // Load texture then re-request if it was not loaded before.
+        if (!repository.IsAssetLoadedByPath(Path.Combine(Globals.BaseDirectory, name)))
+            repository.LoadAsset<Texture2D>(Path.Combine(Globals.BaseDirectory, name));
 
-        return Texture2D.FromFile(_graphicsDevice, Path.Combine(Globals.BaseDirectory, name));
+        return repository.Request<Texture2D>(name);
     }
 }
