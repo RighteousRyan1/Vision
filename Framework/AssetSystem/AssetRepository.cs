@@ -14,11 +14,18 @@ public class AssetRepository {
     private GraphicsDevice _device;
     private List<IContentLoadable> _assets;
     private FontSystem _fs;
-    public AssetRepository(GraphicsDevice graphicsDevice, FontSystemSettings settings = default) {
+
+    public AssetRepository(GraphicsDevice graphicsDevice, FontSystem fontSystem) {
         _assets = new();
         _device = graphicsDevice;
-        _fs = new(settings);
+        _fs = fontSystem;
     }
+
+    public AssetRepository(GraphicsDevice graphicsDevice, FontSystemSettings settings) : this(graphicsDevice,
+        new FontSystem(settings)) { } // Call an already implemented ctor.
+
+    public AssetRepository(GraphicsDevice graphicsDevice) : this(graphicsDevice, new FontSystem()) { }
+
 
     /// <summary>
     ///     Retrieves an asset from the loaded asset cache.
@@ -31,6 +38,7 @@ public class AssetRepository {
             throw new AssetNotFoundException($"Failed to find requested asset: {assetName}");
         return (_assets.First(asset => asset.Name == assetName) as Asset<T>)!.Value;
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -52,29 +60,23 @@ public class AssetRepository {
 
         if (tType.TypeHandle.Equals(typeof(Texture2D).TypeHandle)) {
             var result = Texture2D.FromFile(_device, assetPath);
-            var asset = new Asset<Texture2D>(assetPath, result) {
-                Name = cutName
-            };
+            var asset = new Asset<Texture2D>(cutName, assetPath, result);
             _assets.Add(asset);
         }
         else if (tType.TypeHandle.Equals(typeof(SoundEffect).TypeHandle)) {
             var result = SoundEffect.FromFile(assetPath);
-            var asset = new Asset<SoundEffect>(assetPath, result) {
-                Name = cutName
-            };
+            var asset = new Asset<SoundEffect>(cutName, assetPath, result);
             _assets.Add(asset);
         }
         else if (tType.TypeHandle.Equals(typeof(Effect).TypeHandle)) {
             var result = new Effect(_device, File.ReadAllBytes(assetPath));
-            var asset = new Asset<Effect>(assetPath, result) {
-                Name = cutName
-            };
+            var asset = new Asset<Effect>(cutName, assetPath, result);
             _assets.Add(asset);
         }
         // we'll need our own FBX parser. Would be fun to have an obj importer too.
         /*else if (tType.TypeHandle.Equals(typeof(Model).TypeHandle)) {
             var result = Texture2D.FromFile(_device, assetPath);
-            var asset = new Asset<Model>(assetPath, result) { 
+            var asset = new Asset<Model>(assetPath, result) {
                 Name = cutName
             };
             _assets.Add(asset);
@@ -82,9 +84,10 @@ public class AssetRepository {
     }
 
     public void LoadFont(string fontPath, float fontSize) {
+        if (_assets.Any(x => x.Path == fontPath)) return; // Font already loaded.
         _fs.AddFont(File.ReadAllBytes(fontPath));
         var result = _fs.GetFont(fontSize);
-            var asset = new Asset<SpriteFontBase>(fontPath, result);
+        var asset = new Asset<SpriteFontBase>(Path.GetFileNameWithoutExtension(fontPath), fontPath, result);
         _assets.Add(asset);
     }
 
